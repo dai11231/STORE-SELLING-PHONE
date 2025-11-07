@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.io.*;
 
 public class NhanVien implements IReadWriteFile, Serializable {
+    Scanner sc = new Scanner(System.in);
     private String maNV;
     private String hoNV;
     private String tenNV;
@@ -43,7 +44,7 @@ public class NhanVien implements IReadWriteFile, Serializable {
     public void setBirth(String birth) { this.birth = birth; }
     public void setLuong(double luong) { this.luong = luong; }
 
-    public void nhap(Scanner sc){
+    public void nhap(){
         System.out.print("Nhap ma nhan vien: ");
         maNV = sc.nextLine();
         System.out.print("Nhap ho: ");

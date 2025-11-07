@@ -41,7 +41,7 @@ public abstract class DienThoai implements IReadWriteFile, Serializable {
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
             writer.printf("%s;%s;%s;%.2f;%d;%s\n",
                 maDT, tenDT, hangSX, donGia, soLuongNhap, getLoaiDT());
-        }
+        } 
     }
 
     protected void nhapThongTinCoBan(Scanner sc) {

@@ -45,7 +45,8 @@ public class HoaDon implements IReadWriteFile, Serializable {
         return SLHD;
     }
        
-    public void nhap(Scanner sc) {
+    public void nhap() {
+        Scanner sc = new Scanner(System.in);
         System.out.print("Nhap ma HD: ");
         maHD = sc.nextLine();
         System.out.print("Nhap ma NV: ");
@@ -62,7 +63,7 @@ public class HoaDon implements IReadWriteFile, Serializable {
     }
 
     public void tinhTongTien() {
-        
+
     }
 
     @Override

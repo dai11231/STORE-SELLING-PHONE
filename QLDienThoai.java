@@ -68,7 +68,7 @@ public class QLDienThoai {
         }
     }
     
-    private void menuLoaiDT(Scanner sc) {
+    private void menuLoaiDT() {
         while (true) {
             System.out.println("\n// CHON LOAI DIEN THOAI //");
             System.out.println("1. Dien thoai thong minh");
@@ -79,10 +79,10 @@ public class QLDienThoai {
             int chon = Integer.parseInt(sc.nextLine());
             switch (chon) {
                 case 1:
-                    dsdt.them(sc, "ThongMinh");
+                    dsdt.them("ThongMinh");
                     return;
                 case 2:
-                    dsdt.them(sc, "CoDien");
+                    dsdt.them("CoDien");
                     return;
                 case 3:
                     return;
@@ -113,7 +113,7 @@ public class QLDienThoai {
                         dsdt.hienThiDS();
                         break;
                     case 2:
-                        menuLoaiDT(sc);
+                        menuLoaiDT();
                         break;
                     case 3:
                         dsdt.xoa("", sc);

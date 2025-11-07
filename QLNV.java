@@ -2,9 +2,10 @@ import java.util.Scanner;
 import java.io.*;
 
 public class QLNV {
+    Scanner sc = new Scanner(System.in);
     private DSNV dsnv = new DSNV();
 
-    public void timKiemNV(Scanner sc){
+    public void timKiemNV() {
         System.out.println("// TIM KIEM NHAN VIEN //");
         System.out.println("1. Tim kiem theo ma");
         System.out.println("2. Tim kiem theo ho");
@@ -13,17 +14,17 @@ public class QLNV {
 
         int t = Integer.parseInt(sc.nextLine());
         if(t==1){
-            dsnv.timKiemTheoMaNV("", sc);
+            dsnv.timKiemTheoMaNV();
         }
         else if(t==2){
-            dsnv.timKiemTheoHoNV("", sc);
+            dsnv.timKiemTheoHoNV();
         }
         else{
-            dsnv.timKiemTheoTenNV("", sc);
+            dsnv.timKiemTheoTenNV();
         }
     }
 
-    public void cacThongKe(Scanner sc){
+    public void cacThongKe() {
         System.out.println("// THONG KE //");
         System.out.println("1. Thong ke theo GT");
         System.out.println("2. Thong ke theo tuoi");
@@ -98,7 +99,7 @@ public class QLNV {
         }
     }
     
-    public void menu(Scanner sc){
+    public void menu() {
         while(true){
             System.out.println("\n// QUAN LY NHAN VIEN //");
             System.out.println("1. Hien thi DSNV");
@@ -118,19 +119,19 @@ public class QLNV {
                         dsnv.hienThiDS();
                         break;
                     case 2:
-                        dsnv.them(sc);
+                        dsnv.them();
                         break;
                     case 3:
-                        dsnv.xoa("", sc);
+                        dsnv.xoa();
                         break;
                     case 4:
-                        dsnv.sua("", sc);
+                        dsnv.sua();
                         break;
                     case 5:
-                        timKiemNV(sc);
+                        timKiemNV();
                         break;
                     case 6:
-                        cacThongKe(sc);
+                        cacThongKe();
                         break;
                     case 7:
                         docTuFile("dsnv.txt");
@@ -150,7 +151,7 @@ public class QLNV {
     public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
     QLNV qlnv = new QLNV();
-    qlnv.menu(sc);
+    qlnv.menu();
     sc.close();
 }
 

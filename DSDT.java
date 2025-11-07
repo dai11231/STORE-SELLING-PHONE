@@ -4,6 +4,7 @@ import java.util.Arrays;
 public class DSDT {
     private DienThoai[] dsdt = new DienThoai[0];
     private int n = 0;
+    Scanner sc = new Scanner(System.in);
 
     public boolean maDTDuyNhat(String maDT) {
         for (int i = 0; i < n; i++) {
@@ -12,7 +13,7 @@ public class DSDT {
         return false;
     }
     
-    public void them(Scanner sc, String loaiDT) {
+    public void them(String loaiDT) {
         System.out.print("Nhap so luong dien thoai can nhap: ");
         int sl = Integer.parseInt(sc.nextLine());
         for (int i = 0; i < sl; i++) {

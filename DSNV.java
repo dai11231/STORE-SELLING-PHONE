@@ -4,7 +4,8 @@ import java.util.Arrays;
 public class DSNV {
     private NhanVien[] dsnv = new NhanVien[0];
     private int n = 0;
-
+    Scanner sc = new Scanner(System.in);
+    
     public boolean maNVDuyNhat(String maNV) {
         for (int i = 0; i < n; i++) {
             if (dsnv[i].getMaNV().equalsIgnoreCase(maNV)) return true;
@@ -12,14 +13,14 @@ public class DSNV {
         return false;
     }
     
-    public void them(Scanner sc) {
+    public void them() {
         System.out.print("Nhap so luong nhan vien can nhap: ");
         int sl = sc.nextInt();
         sc.nextLine();
         for (int i = 0; i < sl; i++) {
             System.out.println("Nhap thong tin nhan vien thu " + (i + 1) + ": ");
             NhanVien nv = new NhanVien();
-            nv.nhap(sc);
+            nv.nhap();
             while (maNVDuyNhat(nv.getMaNV())) {
                 System.out.println("Loi: Ma nhan vien " + nv.getMaNV() + " da ton tai.");
                 System.out.print("Vui long nhap lai ma nhan vien: ");
@@ -58,9 +59,9 @@ public class DSNV {
         }
     }
 
-    public void xoa(String maNV, Scanner sc){
+    public void xoa() {
         System.out.println("Nhap ma nhan vien can xoa: ");
-        maNV = sc.nextLine();
+        String maNV = sc.nextLine();
         for(int i=0;i<n;i++){
             if(dsnv[i].getMaNV().equalsIgnoreCase(maNV)){
                 for (int j = i; j < n - 1; j++) dsnv[j] = dsnv[j + 1];
@@ -73,9 +74,9 @@ public class DSNV {
         System.out.println("Khong tim thay SV co ma " + maNV);
     }
 
-    public void sua(String maNV, Scanner sc) {
+    public void sua() {
     System.out.print("Nhap ma NV can sua: ");
-    maNV = sc.nextLine();
+    String maNV = sc.nextLine();
     
     for (int i = 0; i < n; i++) {
         if (dsnv[i].getMaNV().equalsIgnoreCase(maNV)) {
@@ -107,9 +108,9 @@ public class DSNV {
     System.out.println("Khong tim thay NV co ma: " + maNV);
 }
 
-    public void timKiemTheoMaNV(String maNV, Scanner sc){
+    public void timKiemTheoMaNV(){
         System.out.print("Nhap ma NV can tim: ");
-        maNV = sc.nextLine();
+        String maNV = sc.nextLine();
         for(int i=0; i<n; i++){
             if(dsnv[i].getMaNV().equalsIgnoreCase(maNV)){
                 dsnv[i].xuat();
@@ -119,9 +120,9 @@ public class DSNV {
         System.out.println("Khong tim thay ma NV:" + maNV);
     }
 
-    public void timKiemTheoHoNV(String hoNV, Scanner sc){
+    public void timKiemTheoHoNV(){
         System.out.print("Nhap ho NV can tim: ");
-        hoNV = sc.nextLine();
+        String hoNV = sc.nextLine();
         for(int i=0; i<n; i++ ){
             if(dsnv[i].getHoNV().equalsIgnoreCase(hoNV)){
                 dsnv[i].xuat();
@@ -131,9 +132,9 @@ public class DSNV {
         System.out.println("Khong tim thay nhan vien co ho: "+ hoNV);
     }
     
-    public void timKiemTheoTenNV(String TenNV, Scanner sc){
+    public void timKiemTheoTenNV() {
         System.out.print("Nhap ten NV can tim: ");
-        TenNV = sc.nextLine();
+        String TenNV = sc.nextLine();
         for(int i=0; i<n; i++ ){
             if(dsnv[i].getTenNV().equalsIgnoreCase(TenNV)){
                 dsnv[i].xuat();

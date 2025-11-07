@@ -37,9 +37,21 @@ public class ChiTietHD {
         return soLuong*donGia;
     }
 
-    public void nhap(Scanner sc) {
+    public void nhap() {
+        Scanner sc = new Scanner(System.in);
         System.out.print("Nhap ma HD: ");
         maHD = sc.nextLine();
+        System.out.print("Nhap so loai DT: ");
+        int sl = sc.nextInt();
+        sc.nextLine();
+        for(int i=0;i<sl;i++){
+            System.out.print("Nhap ma DT: ");
+            maDT = sc.nextLine();
+            System.out.print("Nhap so luong: ");
+            soLuong = sc.nextInt();
+            System.out.print("Nhap don gia: ");
+            donGia = sc.nextDouble();
+        }
     }
 
     public void xuat() {
