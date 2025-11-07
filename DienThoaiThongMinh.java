@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.io.*;
+import java.util.Scanner;
 
 public class DienThoaiThongMinh extends DienThoai {
     private String tanSoQuet;
@@ -9,8 +9,8 @@ public class DienThoaiThongMinh extends DienThoai {
     public DienThoaiThongMinh() {}
 
     public DienThoaiThongMinh(String maDT, String tenDT, String hangSX, double donGia, 
-                             int soLuongNhap, String tanSoQuet, String camBienVanTay, String camTruoc) {
-        super(maDT, tenDT, hangSX, donGia, soLuongNhap);
+                             int soLuongKho, String tanSoQuet, String camBienVanTay, String camTruoc) {
+        super(maDT, tenDT, hangSX, donGia, soLuongKho);
         this.tanSoQuet = tanSoQuet;
         this.camBienVanTay = camBienVanTay;
         this.camTruoc = camTruoc;
@@ -27,8 +27,9 @@ public class DienThoaiThongMinh extends DienThoai {
     public void setCamTruoc(String camTruoc) { this.camTruoc = camTruoc; }
 
     @Override
-    public void nhap(Scanner sc) {
-        nhapThongTinCoBan(sc);
+    public void nhap() {
+        super.nhap();
+        Scanner sc = new Scanner(System.in);
         System.out.print("Nhap tan so quet: ");
         tanSoQuet = sc.nextLine();
         System.out.print("Nhap thong tin cam bien van tay: ");
@@ -39,8 +40,8 @@ public class DienThoaiThongMinh extends DienThoai {
 
     @Override
     public void xuat() {
-        System.out.printf("%-10s %-20s %-15s %-15.2f %-10d %-15s %-20s %-15s %-15s\n",
-                maDT, tenDT, hangSX, donGia, soLuongNhap, "Thong minh",
+        super.xuat();
+        System.out.printf("%-15s %-20s %-15s\n",
                 tanSoQuet, camBienVanTay, camTruoc);
     }
 

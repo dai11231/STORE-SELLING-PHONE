@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.io.*;
+import java.util.Scanner;
 
 public class DienThoaiCoDien extends DienThoai {
     private int soPhimVatLy;
@@ -8,8 +8,8 @@ public class DienThoaiCoDien extends DienThoai {
     public DienThoaiCoDien() {}
 
     public DienThoaiCoDien(String maDT, String tenDT, String hangSX, double donGia, 
-                          int soLuongNhap, int soPhimVatLy, String loaiPhim) {
-        super(maDT, tenDT, hangSX, donGia, soLuongNhap);
+                          int soLuongKho, int soPhimVatLy, String loaiPhim) {
+        super(maDT, tenDT, hangSX, donGia, soLuongKho);
         this.soPhimVatLy = soPhimVatLy;
         this.loaiPhim = loaiPhim;
     }
@@ -23,8 +23,9 @@ public class DienThoaiCoDien extends DienThoai {
     public void setLoaiPhim(String loaiPhim) { this.loaiPhim = loaiPhim; }
 
     @Override
-    public void nhap(Scanner sc) {
-        nhapThongTinCoBan(sc);
+    public void nhap() {
+        super.nhap();
+        Scanner sc = new Scanner(System.in);
         System.out.print("Nhap so phim vat ly: ");
         soPhimVatLy = Integer.parseInt(sc.nextLine());
         System.out.print("Nhap loai phim: ");
@@ -33,8 +34,8 @@ public class DienThoaiCoDien extends DienThoai {
 
     @Override
     public void xuat() {
-        System.out.printf("%-10s %-20s %-15s %-15.2f %-10d %-15s %-10d %-15s\n",
-                maDT, tenDT, hangSX, donGia, soLuongNhap, "Co dien",
+        super.xuat();
+        System.out.printf("%-10d %-15s\n",
                 soPhimVatLy, loaiPhim);
     }
 

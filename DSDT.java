@@ -1,9 +1,10 @@
-import java.util.Scanner;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class DSDT {
     private DienThoai[] dsdt = new DienThoai[0];
     private int n = 0;
+    Scanner sc = new Scanner(System.in);
 
     public boolean maDTDuyNhat(String maDT) {
         for (int i = 0; i < n; i++) {
@@ -12,7 +13,7 @@ public class DSDT {
         return false;
     }
     
-    public void them(Scanner sc, String loaiDT) {
+    public void them(String loaiDT) {
         System.out.print("Nhap so luong dien thoai can nhap: ");
         int sl = Integer.parseInt(sc.nextLine());
         for (int i = 0; i < sl; i++) {
@@ -23,7 +24,7 @@ public class DSDT {
             } else {
                 dt = new DienThoaiCoDien();
             }
-            dt.nhap(sc);
+            dt.nhap();
             
             while (maDTDuyNhat(dt.getMaDT())) {
                 System.out.println("Loi: Ma dien thoai " + dt.getMaDT() + " da ton tai.");
@@ -63,16 +64,17 @@ public class DSDT {
             return;
         }
         System.out.println("\nDanh sach dien thoai:");
-        System.out.println("Ma DT     Ten DT               Hang SX         Don Gia        SL Nhap    Loai         Thong so bo sung");
-        System.out.println("--------------------------------------------------------------------------------------------------------");
+        System.out.println("Ma DT     Ten DT               Hang SX           Don Gia        SL Nhap         Loai         Thong so bo sung");
+        System.out.println("-------------------------------------------------------------------------------------------------------------");
         for (int i = 0; i < n; i++) {
             dsdt[i].xuat();
         }
     }
 
-    public void xoa(String maDT, Scanner sc) {
+    public void xoa() {
         System.out.print("Nhap ma dien thoai can xoa: ");
-        maDT = sc.nextLine();
+        String maDT = sc.nextLine();
+        
         for (int i = 0; i < n; i++) {
             if (dsdt[i].getMaDT().equalsIgnoreCase(maDT)) {
                 for (int j = i; j < n - 1; j++) {
@@ -87,9 +89,9 @@ public class DSDT {
         System.out.println("Khong tim thay dien thoai co ma " + maDT);
     }
 
-    public void sua(String maDT, Scanner sc) {
+    public void sua() {
         System.out.print("Nhap ma dien thoai can sua: ");
-        maDT = sc.nextLine();
+        String maDT = sc.nextLine();
         
         for (int i = 0; i < n; i++) {
             if (dsdt[i].getMaDT().equalsIgnoreCase(maDT)) {
@@ -113,7 +115,7 @@ public class DSDT {
                 System.out.print("So luong nhap moi: ");
                 String slStr = sc.nextLine();
                 if (!slStr.isEmpty()) {
-                    dsdt[i].setSoLuongNhap(Integer.parseInt(slStr));
+                    dsdt[i].setsoLuongKho(Integer.parseInt(slStr));
                 }
                 
                 if (dsdt[i] instanceof DienThoaiThongMinh) {
@@ -147,7 +149,9 @@ public class DSDT {
         System.out.println("Khong tim thay dien thoai co ma: " + maDT);
     }
 
-    public void timKiem(Scanner sc) {
+    public void timKiem() {
+
+
         System.out.println("1. Tim theo ma");
         System.out.println("2. Tim theo ten");
         System.out.println("3. Tim theo hang");
@@ -215,11 +219,11 @@ public class DSDT {
         
         for (int i = 0; i < n; i++) {
             if (dsdt[i] instanceof DienThoaiThongMinh) {
-                slThongMinh += dsdt[i].getSoLuongNhap();
-                tongGiaTriThongMinh += dsdt[i].getDonGia() * dsdt[i].getSoLuongNhap();
+                slThongMinh += dsdt[i].getsoLuongKho();
+                tongGiaTriThongMinh += dsdt[i].getDonGia() * dsdt[i].getsoLuongKho();
             } else {
-                slCoDien += dsdt[i].getSoLuongNhap();
-                tongGiaTriCoDien += dsdt[i].getDonGia() * dsdt[i].getSoLuongNhap();
+                slCoDien += dsdt[i].getsoLuongKho();
+                tongGiaTriCoDien += dsdt[i].getDonGia() * dsdt[i].getsoLuongKho();
             }
         }
         
