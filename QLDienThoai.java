@@ -1,8 +1,9 @@
-import java.util.Scanner;
 import java.io.*;
+import java.util.Scanner;
 
 public class QLDienThoai {
     private DSDT dsdt = new DSDT();
+    private Scanner sc = new Scanner(System.in);
 
     public void docTuFile(String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
@@ -16,7 +17,7 @@ public class QLDienThoai {
                     String tenDT = parts[1].trim();
                     String hangSX = parts[2].trim();
                     double donGia = Double.parseDouble(parts[3].trim());
-                    int soLuongNhap = Integer.parseInt(parts[4].trim());
+                    int soLuongKho = Integer.parseInt(parts[4].trim());
                     String loaiDT = parts[5].trim();
                     
                     DienThoai dt;
@@ -24,12 +25,12 @@ public class QLDienThoai {
                         String tanSoQuet = parts[6].trim();
                         String camBienVanTay = parts[7].trim();
                         String camTruoc = parts[8].trim();
-                        dt = new DienThoaiThongMinh(maDT, tenDT, hangSX, donGia, soLuongNhap,
+                        dt = new DienThoaiThongMinh(maDT, tenDT, hangSX, donGia, soLuongKho,
                                                   tanSoQuet, camBienVanTay, camTruoc);
                     } else if (loaiDT.equals("CoDien") && parts.length >= 8) {
                         int soPhimVatLy = Integer.parseInt(parts[6].trim());
                         String loaiPhim = parts[7].trim();
-                        dt = new DienThoaiCoDien(maDT, tenDT, hangSX, donGia, soLuongNhap,
+                        dt = new DienThoaiCoDien(maDT, tenDT, hangSX, donGia, soLuongKho,
                                                soPhimVatLy, loaiPhim);
                     } else {
                         continue;
@@ -52,13 +53,13 @@ public class QLDienThoai {
                     DienThoaiThongMinh dtm = (DienThoaiThongMinh) dt;
                     pw.printf("%s;%s;%s;%.2f;%d;%s;%s;%s;%s\n",
                         dt.getMaDT(), dt.getTenDT(), dt.getHangSX(), dt.getDonGia(),
-                        dt.getSoLuongNhap(), dt.getLoaiDT(),
+                        dt.getsoLuongKho(), dt.getLoaiDT(),
                         dtm.getTanSoQuet(), dtm.getCamBienVanTay(), dtm.getCamTruoc());
                 } else if (dt instanceof DienThoaiCoDien) {
                     DienThoaiCoDien dtcd = (DienThoaiCoDien) dt;
                     pw.printf("%s;%s;%s;%.2f;%d;%s;%d;%s\n",
                         dt.getMaDT(), dt.getTenDT(), dt.getHangSX(), dt.getDonGia(),
-                        dt.getSoLuongNhap(), dt.getLoaiDT(),
+                        dt.getsoLuongKho(), dt.getLoaiDT(),
                         dtcd.getSoPhimVatLy(), dtcd.getLoaiPhim());
                 }
             }
@@ -92,7 +93,7 @@ public class QLDienThoai {
         }
     }
 
-    public void menu(Scanner sc) {
+    public void menu() {
         while (true) {
             System.out.println("\n// QUAN LY DIEN THOAI //");
             System.out.println("1. Hien thi danh sach dien thoai");
@@ -116,13 +117,13 @@ public class QLDienThoai {
                         menuLoaiDT();
                         break;
                     case 3:
-                        dsdt.xoa("", sc);
+                        dsdt.xoa();
                         break;
                     case 4:
-                        dsdt.sua("", sc);
+                        dsdt.sua();
                         break;
                     case 5:
-                        dsdt.timKiem(sc);
+                        dsdt.timKiem();
                         break;
                     case 6:
                         dsdt.thongKe();
@@ -146,9 +147,7 @@ public class QLDienThoai {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         QLDienThoai qldt = new QLDienThoai();
-        qldt.menu(sc);
-        sc.close();
+        qldt.menu();
     }
 }

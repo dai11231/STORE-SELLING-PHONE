@@ -1,0 +1,10 @@
+KH001;Nguyen Van Anh;0983456789;123 Le Loi, Ha Noi
+KH002;Tran Thi Binh;0912345678;45 Nguyen Hue, TP.HCM
+KH003;Le Van Cuong;0898765432;78 Tran Phu, Da Nang
+KH004;Pham Thi Dung;0977123456;234 Bach Dang, Hai Phong
+KH005;Hoang Van Em;0905678901;567 Le Hong Phong, TP.HCM
+KH006;Vo Thi Phuong;0889012345;89 Quang Trung, Ha Noi
+KH007;Dang Van Giang;0932123456;321 Nguyen Van Linh, Can Tho
+KH008;Mai Thi Huong;0976543210;154 Le Duan, TP.HCM
+KH009;Bui Van Inh;0912876543;67 Tran Hung Dao, Ha Noi
+KH010;Ly Thi Kim;0888999777;890 Nguyen Trai, Da Nang

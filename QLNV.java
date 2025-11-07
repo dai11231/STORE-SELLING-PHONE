@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.io.*;
+import java.util.Scanner;
 
 public class QLNV {
     Scanner sc = new Scanner(System.in);
@@ -140,7 +140,7 @@ public class QLNV {
                         ghiVaoFile("dsnv.txt");
                         break;
                     case 9:
-                        System.out.println("\nCam on ban da su dung chuong trinh!");
+                        System.out.println("\n exit");
                         return;
                     default:
                         System.out.println("Lua chon khong hop le!");
