@@ -5,6 +5,10 @@ public class QLNV {
     Scanner sc = new Scanner(System.in);
     private DSNV dsnv = new DSNV();
 
+    public DSNV getDSNV() {
+        return dsnv;
+    }
+
     public void timKiemNV() {
         System.out.println("// TIM KIEM NHAN VIEN //");
         System.out.println("1. Tim kiem theo ma");
@@ -39,60 +43,17 @@ public class QLNV {
     }
 
     public void docTuFile(String fileName) {
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            int count = 0;
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (!line.trim().isEmpty()) {
-                    count++;
-                }
-            }
-            br.close();
-            
-            NhanVien[] danhSachMoi = new NhanVien[count];
-            int index = 0;
-            
-            try (BufferedReader br2 = new BufferedReader(new FileReader(fileName))) {
-                while ((line = br2.readLine()) != null) {
-                    if (line.trim().isEmpty()) continue;
-                    
-                    String[] parts = line.split(";");
-                    if (parts.length >= 6) {
-                        String maNV = parts[0].trim();
-                        String hoNV = parts[1].trim();
-                        String tenNV = parts[2].trim();
-                        String gioiTinh = parts[3].trim();
-                        String birth = parts[4].trim();
-                        double luong = Double.parseDouble(parts[5].trim());
-                        
-                        danhSachMoi[index++] = new NhanVien(maNV, hoNV, tenNV, gioiTinh, birth, luong);
-                    }
-                }
-            }
-            
-            dsnv = new DSNV();
-            for (int i = 0; i < index; i++) {
-                dsnv.them(danhSachMoi[i]);
-            }
+        try {
+            dsnv.docFile(fileName);
             System.out.println("Da tai du lieu tu file thanh cong!");
-            
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println("Loi khi doc file: " + e.getMessage());
         }
     }
     
     public void ghiVaoFile(String fileName) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(fileName))) {
-            for (int i = 0; i < dsnv.soLuongNV(); i++) {
-                NhanVien nv = dsnv.getNhanVien(i);
-                pw.printf("%s;%s;%s;%s;%s;%.2f\n",
-                    nv.getMaNV(),
-                    nv.getHoNV(),
-                    nv.getTenNV(),
-                    nv.getGioiTinh(),
-                    nv.getBirth(),
-                    nv.getLuong());
-            }
+        try {
+            dsnv.ghiFile(fileName);
             System.out.println("Da luu du lieu vao file thanh cong!");
         } catch (IOException e) {
             System.out.println("Loi khi ghi file: " + e.getMessage());

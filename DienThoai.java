@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class DienThoai implements IReadWriteFile, Serializable {
+public abstract class DienThoai implements IReadWriteFile, Serializable {
     protected String maDT;
     protected String tenDT;
     protected String hangSX;
@@ -32,22 +32,7 @@ public class DienThoai implements IReadWriteFile, Serializable {
     public void setDonGia(double donGia) { this.donGia = donGia; }
     public void setsoLuongKho(int soLuongKho) { this.soLuongKho = soLuongKho; }
 
-<<<<<<< HEAD
-    public abstract void nhap(Scanner sc);
-    public abstract void xuat();
     public abstract String getLoaiDT();
-
-    @Override
-    public void ghiFile(String fileName) throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
-            writer.printf("%s;%s;%s;%.2f;%d;%s\n",
-                maDT, tenDT, hangSX, donGia, soLuongNhap, getLoaiDT());
-        } 
-=======
-    public String getLoaiDT() {
-        return "DienThoai";
->>>>>>> 35bd3f37d42ebeafb9578c6de882360bc03adb62
-    }
 
     public void nhap() {
         Scanner sc = new Scanner(System.in);

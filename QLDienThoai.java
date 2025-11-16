@@ -5,6 +5,10 @@ public class QLDienThoai {
     private DSDT dsdt = new DSDT();
     private Scanner sc = new Scanner(System.in);
 
+
+      public DSDT getDSDT() {
+        return dsdt;
+    }
     public void docTuFile(String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;

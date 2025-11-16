@@ -4,6 +4,10 @@ import java.util.Scanner;
 public class QLKH {
     private DSKH dskh = new DSKH();
 
+    public DSKH getDSKH() {
+        return dskh;
+    }
+
     public void docTuFile(String fileName) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -49,9 +53,8 @@ public class QLKH {
             System.out.println("4. Sua thong tin khach hang");
             System.out.println("5. Tim kiem khach hang");
             System.out.println("6. Thong ke khach hang");
-            System.out.println("7. Doc tu file");
-            System.out.println("8. Luu vao file");
-            System.out.println("9. Thoat");
+            System.out.println("7. Luu vao file");
+            System.out.println("8. Thoat");
             System.out.print("Lua chon: ");
 
             try {
@@ -76,12 +79,9 @@ public class QLKH {
                         dskh.thongKe();
                         break;
                     case 7:
-                        docTuFile("dskh.txt");
-                        break;
-                    case 8:
                         ghiVaoFile("dskh.txt");
                         break;
-                    case 9:
+                    case 8:
                         System.out.println("\nCam on ban da su dung chuong trinh!");
                         return;
                     default:
@@ -96,6 +96,7 @@ public class QLKH {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         QLKH qlkh = new QLKH();
+        qlkh.docTuFile("dskh.txt");
         qlkh.menu(sc);
         sc.close();
     }

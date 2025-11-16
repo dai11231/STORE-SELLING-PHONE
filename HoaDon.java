@@ -47,47 +47,71 @@ public class HoaDon implements IReadWriteFile, Serializable {
        
     public void nhap() {
         Scanner sc = new Scanner(System.in);
+        
         System.out.print("Nhap ma HD: ");
         maHD = sc.nextLine();
-        System.out.print("Nhap ma NV: ");
-        maNV = sc.nextLine();
-        System.out.print("Nhap ma KH: ");
-        maKH =sc.nextLine();
+        
+        //Kiểm tra mã nhân viên
+        do {
+            System.out.print("Nhap ma NV: ");
+            maNV = sc.nextLine();
+            if(!QuanLy.qlNV.getDSNV().maNVDuyNhat(maNV)) {
+                System.out.println("Ma nhan vien " + maNV + " khong ton tai trong he thong!");
+                System.out.print("Vui long nhap lai ma nhan vien: ");
+            } else {
+                break;
+            }
+        } while(true);
+        
+        // Kiểm tra mã khách hàng
+        do {
+            System.out.print("Nhap ma KH: ");
+            maKH =sc.nextLine();
+            if(!QuanLy.qlKH.getDSKH().maKHDuyNhat(maKH)) {
+                System.out.println("Ma khach hang " + maKH + " khong ton tai trong he thong!");
+                System.out.print("Vui long nhap lai ma khach hang: ");
+            } else {
+                break;
+            }
+        } while(true);
+        
         System.out.print("Nhap ngay lap HD: ");
         ngLap = sc.nextLine();
     }
     
     public void xuat() {
-        System.out.printf("%-20s%-20s%-20s%-15s%-15.2f\n", 
+        System.out.printf("%-20s%-20s%-20s%-15s%,-15.0f\n", 
         maHD, maNV, maKH, ngLap, tongTien);
     }
 
-    public void tinhTongTien() {
-
+    public void tinhTongTien(ChiTietHD[] dscthd) {
+        double tong = 0;
+        for(int i = 0; i < dscthd.length; i++) {
+            if(dscthd[i] != null && dscthd[i].getMaHD().equals(this.maHD)) {
+                tong += dscthd[i].thanhTien();
+            }
+        }
+        this.tongTien = tong;
     }
-
-    @Override
+    
+    // Phương thức tính tổng tiền khi thêm chi tiết mới
+    public void tinhTongTienTuChiTiet(ChiTietHD cthd) {
+        if(cthd != null && cthd.getMaHD().equals(this.maHD)) {
+            this.tongTien += cthd.thanhTien();
+        }
+    }
+    
+  @Override
     public void ghiFile(String fileName) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
-            writer.printf("%s;%s;%s;%.2f;%.2f\n",
+            writer.printf("%s;%s;%s;%s;%.2f\n",
                 maHD, maNV, maKH, ngLap, tongTien);
         }
     }
-
+    
     @Override
-    public void docFile(String fileName) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(";");
-                if (parts.length == 5) {
-                    maHD = parts[0];
-                    maNV = parts[1];
-                    maKH = parts[2];
-                    ngLap = parts[3];
-                    tongTien = Double.parseDouble(parts[4]);
-                }
-            }
-        }
+    public void docFile(String fileName) throws IOException, ClassNotFoundException {
+        throw new UnsupportedOperationException("Use DSHD class for reading multiple invoices");
     }
+
 }

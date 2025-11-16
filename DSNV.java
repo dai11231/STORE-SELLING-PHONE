@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.io.*;
 
 public class DSNV {
     private NhanVien[] dsnv = new NhanVien[0];
@@ -120,29 +121,43 @@ public class DSNV {
         System.out.println("Khong tim thay ma NV:" + maNV);
     }
 
-    public void timKiemTheoHoNV(){
-        System.out.print("Nhap ho NV can tim: ");
-        String hoNV = sc.nextLine();
-        for(int i=0; i<n; i++ ){
-            if(dsnv[i].getHoNV().equalsIgnoreCase(hoNV)){
-                dsnv[i].xuat();
-                return;
-            }
+    public void timKiemTheoHoNV() {
+    System.out.print("Nhap ho NV can tim: ");
+    String hoNV = sc.nextLine();
+
+    boolean found = false; // cờ kiểm tra có tìm thấy hay không
+
+    for (int i = 0; i < n; i++) {
+        if (dsnv[i].getHoNV().equalsIgnoreCase(hoNV)) {
+            dsnv[i].xuat();
+            found = true;
         }
-        System.out.println("Khong tim thay nhan vien co ho: "+ hoNV);
     }
+
+    if (!found) {
+        System.out.println("Khong tim thay nhan vien co ho: " + hoNV);
+    }
+}
+
     
     public void timKiemTheoTenNV() {
-        System.out.print("Nhap ten NV can tim: ");
-        String TenNV = sc.nextLine();
-        for(int i=0; i<n; i++ ){
-            if(dsnv[i].getTenNV().equalsIgnoreCase(TenNV)){
-                dsnv[i].xuat();
-                return;
-            }
+    System.out.print("Nhap ten NV can tim: ");
+    String tenNV = sc.nextLine();
+
+    boolean found = false; // cờ kiểm tra có tìm thấy hay không
+
+    for (int i = 0; i < n; i++) {
+        if (dsnv[i].getHoNV().equalsIgnoreCase(tenNV)) {
+            dsnv[i].xuat();
+            found = true;
         }
-        System.out.println("Khong tim thay nhan vien co ten: "+ TenNV);
     }
+
+    if (!found) {
+        System.out.println("Khong tim thay nhan vien co ten: " + tenNV);
+    }
+}
+
 
     public void thongKeTheoGT(){
         int nam = 0, nu = 0;
@@ -172,6 +187,50 @@ public class DSNV {
         System.out.println("// THONG KE THEO TUOI //");
         System.out.println("Nhan vien tu 20 den 30 tuoi: "+ a);
         System.out.println("Nhan vien lon hon 30 tuoi: "+ b);
+    }
+    
+    public void docFile(String fileName) throws IOException, ClassNotFoundException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            int lineCount = 0;
+            BufferedReader counter = new BufferedReader(new FileReader(fileName));
+            while ((counter.readLine()) != null) {
+                lineCount++;
+            }
+            counter.close();
+            
+            dsnv = new NhanVien[lineCount];
+            n = 0;
+            
+            BufferedReader dataReader = new BufferedReader(new FileReader(fileName));
+            while ((line = dataReader.readLine()) != null) {
+                String[] parts = line.split(";");
+                if (parts.length == 6) {
+                    NhanVien nv = new NhanVien();
+                    nv.setMaNV(parts[0]);
+                    nv.setHoNV(parts[1]);
+                    nv.setTenNV(parts[2]);
+                    nv.setGioiTinh(parts[3]);
+                    nv.setBirth(parts[4]);
+                    nv.setLuong(Double.parseDouble(parts[5]));
+                    dsnv[n] = nv;
+                    n++;
+                }
+            }
+            dataReader.close();
+        }
+    }
+    
+    public void ghiFile(String fileName) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (int i = 0; i < n; i++) {
+                NhanVien nv = dsnv[i];
+                writer.write(nv.getMaNV() + ";" + nv.getHoNV() + ";" + 
+                           nv.getTenNV() + ";" + nv.getGioiTinh() + ";" + 
+                           nv.getBirth() + ";" + nv.getLuong());
+                writer.newLine();
+            }
+        }
     }
 
 
