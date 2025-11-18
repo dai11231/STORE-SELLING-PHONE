@@ -1,4 +1,7 @@
-public class NhaCungCap {
+import java.io.*;
+import java.io.IOException;
+
+public class NhaCungCap implements IReadWriteFile {
     private String maNCC;
     private String tenNCC;
     private String sdt;
@@ -79,12 +82,21 @@ public class NhaCungCap {
                 ", Dia chi: " + diaChi;
     }
 
+    // Ham ghi thong tin vao file theo interface
+    @Override
+    public void ghiFile(String fileName) throws IOException {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
+            ghiFile(writer);
+        }
+    }
+
     // Ham ghi thong tin vao file
     public void ghiFile(java.io.PrintWriter writer) {
         writer.println(maNCC + ";" + tenNCC + ";" + sdt + ";" + diaChi);
     }
 
     // Ham doc thong tin tu file
+    @Override
     public void docFile(String duLieu) {
         String[] parts = duLieu.split(";");
         if (parts.length >= 4) {

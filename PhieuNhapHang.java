@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class PhieuNhapHang {
+public class PhieuNhapHang implements IReadWriteFile {
     private String maPhieu;
     private String maNhanVien;
     private String maNhaCungCap;
@@ -95,6 +95,7 @@ public class PhieuNhapHang {
                ", Tong tien nhap: " + tongTienNhap;
     }
 
+    @Override
     public void docFile(String duLieu) {
         // Format: PNH001,NV001,NCC001,19012025,349900000
         String[] parts = duLieu.split(",");
@@ -111,6 +112,7 @@ public class PhieuNhapHang {
         }
     }
 
+    @Override
     public void ghiFile(String tenFile) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(tenFile, true))) {
             // Dinh dang: PHIEU,maPhieu,maNhanVien,maNCC,ngayNhap,tongTienNhap

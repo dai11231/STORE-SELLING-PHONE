@@ -3,7 +3,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ChiTietPhieuNhapHang {
+public class ChiTietPhieuNhapHang implements IReadWriteFile {
     private String maPhieu; 
     private String maDienThoai; 
     private int soLuong; 
@@ -49,6 +49,7 @@ public class ChiTietPhieuNhapHang {
     }
     
     // --- Phương thức ghi File cũ (Giữ nguyên) ---
+    @Override
     public void ghiFile(String tenFile) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(tenFile, true))) {
             ghiFile(writer); // Gọi phương thức ghi file mới để tránh lặp code
@@ -58,6 +59,7 @@ public class ChiTietPhieuNhapHang {
     }
 
     // --- Bổ sung: Phương thức đọc File từ một dòng dữ liệu ---
+    @Override
     public void docFile(String duLieu) {
         // Định dạng mong muốn: CT,maPhieu,maDT,soLuong,donGiaNhap
         try {
