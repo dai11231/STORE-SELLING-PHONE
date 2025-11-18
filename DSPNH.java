@@ -12,11 +12,13 @@ public class DSPNH {
     private final String TEN_FILE = "PNH.txt";
     
     private DSCTPNH dsChiTiet; 
+    private QLNV qlNV; // Reference to employee management system
 
-    public DSPNH(DSCTPNH dsChiTiet) {
+    public DSPNH(DSCTPNH dsChiTiet, QLNV qlNV) {
         this.danhSach = new PhieuNhapHang[KICH_THUOC_BAN_DAU];
         this.soLuongHienTai = 0;
         this.dsChiTiet = dsChiTiet; 
+        this.qlNV = qlNV; // Store employee reference
         docTatCaTuFile();
     }
 
@@ -27,15 +29,87 @@ public class DSPNH {
         }
     }
 
+    // --- Check unique purchase order code ---
+    public boolean maPhieuDuyNhat(String maPhieu) {
+        for (int i = 0; i < soLuongHienTai; i++) {
+            if (danhSach[i].getMaPhieu().equalsIgnoreCase(maPhieu)) return true;
+        }
+        return false;
+    }
+    
+    // --- Check if employee code exists ---
+    public boolean maNVTonTai(String maNV) {
+        if (qlNV == null) return false;
+        
+        // Create a temporary string array to check if employee exists
+        // We'll use the existing search functionality
+        try {
+            // Use a simple search through the employee data
+            java.util.Scanner tempScanner = new java.util.Scanner(new java.io.File("dsnv.txt"));
+            while (tempScanner.hasNextLine()) {
+                String line = tempScanner.nextLine();
+                String[] parts = line.split(";");
+                if (parts.length >= 1 && parts[0].trim().equalsIgnoreCase(maNV.trim())) {
+                    tempScanner.close();
+                    return true;
+                }
+            }
+            tempScanner.close();
+        } catch (Exception e) {
+            // If file doesn't exist or error occurs, assume employee doesn't exist
+        }
+        return false;
+    }
+    
+    // --- Check if supplier code exists ---
+    public boolean maNCCTonTai(String maNCC) {
+        try {
+            java.util.Scanner tempScanner = new java.util.Scanner(new java.io.File("NCC.txt"));
+            while (tempScanner.hasNextLine()) {
+                String line = tempScanner.nextLine();
+                String[] parts = line.split(";");
+                if (parts.length >= 1 && parts[0].trim().equalsIgnoreCase(maNCC.trim())) {
+                    tempScanner.close();
+                    return true;
+                }
+            }
+            tempScanner.close();
+        } catch (Exception e) {
+            // If file doesn't exist or error occurs, assume supplier doesn't exist
+        }
+        return false;
+    }
+    
     // --- 1. THEM (CREATE) ---
     public void themPhieuNhap(Scanner scanner) {
         tangKichThuoc();
         PhieuNhapHang pnh = new PhieuNhapHang();
         pnh.nhapThongTin(scanner);
-        if (timTheoMa(pnh.getMaPhieu()) != null) {
-            System.out.println("Loi: Ma Phieu Nhap da ton tai.");
-            return;
+        
+        // Check for unique purchase order code with retry mechanism
+        while (maPhieuDuyNhat(pnh.getMaPhieu())) {
+            System.out.println("Loi: Ma phieu nhap " + pnh.getMaPhieu() + " da ton tai.");
+            System.out.print("Vui long nhap lai ma phieu nhap: ");
+            String newMaPhieu = scanner.nextLine().trim();
+            pnh.setMaPhieu(newMaPhieu);
         }
+        
+        // Check if employee code exists with retry mechanism
+        while (!maNVTonTai(pnh.getMaNhanVien())) {
+            System.out.println("Loi: Ma nhan vien " + pnh.getMaNhanVien() + " khong ton tai trong he thong.");
+            System.out.print("Vui long nhap lai ma nhan vien: ");
+            String newMaNV = scanner.nextLine().trim();
+            pnh.setMaNhanVien(newMaNV);
+        }
+        
+        // Check if supplier code exists with retry mechanism
+        while (!maNCCTonTai(pnh.getMaNhaCungCap())) {
+            System.out.println("Loi: Ma nha cung cap " + pnh.getMaNhaCungCap() + " khong ton tai trong he thong.");
+            System.out.print("Vui long nhap lai ma nha cung cap: ");
+            String newMaNCC = scanner.nextLine().trim();
+            pnh.setMaNhaCungCap(newMaNCC);
+        }
+        
         this.danhSach[soLuongHienTai] = pnh;
         soLuongHienTai++;
         System.out.println("Them Phieu Nhap thanh cong.");
@@ -161,7 +235,8 @@ public class DSPNH {
         
         // Khoi tao cac doi tuong quan ly dung ten class hien co
         DSCTPNH dsCT = new DSCTPNH();
-        DSPNH dsPNH = new DSPNH(dsCT); 
+        QLNV qlNV = new QLNV(); // Initialize employee system
+        DSPNH dsPNH = new DSPNH(dsCT, qlNV); // Pass both parameters
         DSNCC dsNCC = new DSNCC();
 
         int luaChon = -1;

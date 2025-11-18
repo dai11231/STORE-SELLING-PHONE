@@ -24,15 +24,28 @@ public class DSNCC {
         }
     }
 
+    // --- Check unique supplier code ---
+    public boolean maNCCDuyNhat(String maNCC) {
+        for (int i = 0; i < soLuongHienTai; i++) {
+            if (danhSach[i].getMaNCC().equalsIgnoreCase(maNCC)) return true;
+        }
+        return false;
+    }
+    
     // --- 1. THÊM (CREATE) ---
     public void themNhaCungCap(Scanner scanner) {
         tangKichThuoc();
         NhaCungCap ncc = new NhaCungCap();
         ncc.nhapThongTin(scanner);
-        if (timTheoMa(ncc.getMaNCC()) != null) {
-            System.out.println("Loi: Ma Nha Cung Cap da ton tai.");
-            return;
+        
+        // Check for unique supplier code with retry mechanism
+        while (maNCCDuyNhat(ncc.getMaNCC())) {
+            System.out.println("Loi: Ma nha cung cap " + ncc.getMaNCC() + " da ton tai.");
+            System.out.print("Vui long nhap lai ma nha cung cap: ");
+            String newMaNCC = scanner.nextLine().trim();
+            ncc.setMaNCC(newMaNCC);
         }
+        
         danhSach[soLuongHienTai] = ncc;
         soLuongHienTai++;
         System.out.println("Them Nha Cung Cap thanh cong.");

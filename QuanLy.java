@@ -12,7 +12,7 @@ public class QuanLy {
     // Management modules for suppliers, purchase orders, and purchase order details
     public static DSNCC qlNCC = new DSNCC();
     public static DSCTPNH qlCTPNH = new DSCTPNH();
-    public static DSPNH qlPNH = new DSPNH(qlCTPNH);
+    public static DSPNH qlPNH = new DSPNH(qlCTPNH, qlNV);
     
     public static void main(String[] args) {
         // Tải dữ liệu từ các file
