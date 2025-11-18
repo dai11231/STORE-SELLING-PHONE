@@ -6,7 +6,9 @@ public class DSCTHD{
     int n = 0;
     Scanner sc = new Scanner(System.in);
 
-    public void them(String maHD) {
+    public void them() {
+        System.out.print("Nhap ma hoa don: ");
+        String maHD = sc.nextLine();
         System.out.println("Ma hoa don " + maHD + " chua co chi tiet. Hay nhap chi tiet moi:");
         
         // Tạo chi tiết mới và set maHD
@@ -24,8 +26,14 @@ public class DSCTHD{
         System.out.print("Ban co muon tiep tuc them chi tiet cho hoa don khong? (y/n): ");
         String tiepTuc = sc.nextLine();
         if(tiepTuc.equalsIgnoreCase("y")) {
-            them(maHD);
+            them();
         }
+    }
+
+    public void them(ChiTietHD cthd) {
+        dscthd = java.util.Arrays.copyOf(dscthd, n + 1);
+        dscthd[n] = cthd;
+        n++;
     }
     
 

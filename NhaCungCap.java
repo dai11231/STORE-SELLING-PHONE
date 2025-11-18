@@ -46,22 +46,53 @@ public class NhaCungCap {
         this.diaChi = diaChi;
     }
 
-    // Hàm xuất thông tin nhà cung cấp
+    // Ham nhap thong tin nha cung cap
+    public void nhapThongTin(java.util.Scanner scanner) {
+        System.out.print("Nhap ma NCC: ");
+        this.maNCC = scanner.nextLine();
+        
+        System.out.print("Nhap ten NCC: ");
+        this.tenNCC = scanner.nextLine();
+        
+        System.out.print("Nhap SDT: ");
+        this.sdt = scanner.nextLine();
+        
+        System.out.print("Nhap dia chi: ");
+        this.diaChi = scanner.nextLine();
+    }
+
+    // Ham xuat thong tin nha cung cap
     public void xuat() {
-        System.out.println("===== Thông Tin Nhà Cung Cấp =====");
-        System.out.println("Mã NCC: " + maNCC);
-        System.out.println("Tên NCC: " + tenNCC);
-        System.out.println("SĐT: " + sdt);
-        System.out.println("Địa chỉ: " + diaChi);
+        System.out.println("===== Thong Tin Nha Cung Cap =====");
+        System.out.println("MA NCC: " + maNCC);
+        System.out.println("TEN NCC: " + tenNCC);
+        System.out.println("SDT: " + sdt);
+        System.out.println("DIA CHI: " + diaChi);
         System.out.println("----------------------------------");
     }
 
     @Override
     public String toString() {
-        return "Mã NCC: " + maNCC +
-                ", Tên NCC: " + tenNCC +
-                ", SĐT: " + sdt +
-                ", Địa Chỉ: " + diaChi;
+        return "Ma NCC: " + maNCC +
+                ", Ten NCC: " + tenNCC +
+                ", SDT: " + sdt +
+                ", Dia chi: " + diaChi;
+    }
+
+    // Ham ghi thong tin vao file
+    public void ghiFile(java.io.PrintWriter writer) {
+        writer.println(maNCC + ";" + tenNCC + ";" + sdt + ";" + diaChi);
+    }
+
+    // Ham doc thong tin tu file
+    public void docFile(String duLieu) {
+        String[] parts = duLieu.split(";");
+        if (parts.length >= 4) {
+            this.maNCC = parts[0].trim();
+            this.tenNCC = parts[1].trim();
+            this.sdt = parts[2].trim();
+            this.diaChi = parts[3].trim();
+        }
     }
 }
 

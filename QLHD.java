@@ -31,7 +31,9 @@ public class QLHD {
             System.out.println("5. Tim kiem theo ma HD");
             System.out.println("6. Tim kiem theo ma KH");
             System.out.println("7. Tim kiem theo ma NV");
-            System.out.println("8. Ghi file");
+            System.out.println("8. Thong ke theo ngay");
+            System.out.println("9. Doc file");
+            System.out.println("10. Ghi file");
             System.out.println("0. Thoat");
             System.out.print("Chon: ");
             chon = sc.nextInt();
@@ -60,6 +62,12 @@ public class QLHD {
                     timTheoMaNV();
                     break;
                 case 8:
+                    thongKeTheoNgay();
+                    break;
+                case 9:
+                    docFile();
+                    break;
+                case 10:
                     ghiFile();
                     break;
                 case 0:
@@ -100,6 +108,10 @@ public class QLHD {
     
     public void timTheoMaNV() {
         dshd.timKiemTheoMaNV();
+    }
+    
+    public void thongKeTheoNgay() {
+        dshd.theoNgay();
     }
     
     public void ghiFile() {

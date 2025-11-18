@@ -265,6 +265,65 @@ public class DSHD {
     }
 
     //thống kê ở đây
+
+    public void theoNgay(){
+        System.out.print("Nhap ngay bat dau (dd/MM/yyyy): ");
+        String ngayBatDau = sc.nextLine();
+        System.out.print("Nhap ngay ket thuc (dd/MM/yyyy): ");
+        String ngayKetThuc = sc.nextLine();
+        
+        boolean found = false;
+        double tongTien = 0;
+        
+        System.out.println("\n=== DANH SACH HOA DON TU " + ngayBatDau + " DEN " + ngayKetThuc + " ===");
+        System.out.printf("%-10s %-10s %-10s %-15s %-15s\n", 
+                         "MaHD", "MaNV", "MaKH", "NgayLap", "TongTien");
+        System.out.println("------------------------------------------------------------");
+        
+        for(int i = 0; i < n; i++) {
+            if(dshd[i] != null) {
+                String ngayHD = dshd[i].getNgLap();
+                // So sánh ngày (đơn giản hóa, có thể cần cải thiện với Date)
+                if(compareDate(ngayBatDau, ngayHD) <= 0 && compareDate(ngayHD, ngayKetThuc) <= 0) {
+                    dshd[i].xuat();
+                    tongTien += dshd[i].getTongTien();
+                    found = true;
+                }
+            }
+        }
+        
+        if(!found) {
+            System.out.println("Khong tim thay hoa don nao trong khoang thoi gian nay!");
+        } else {
+            System.out.println("------------------------------------------------------------");
+            System.out.printf("TONG TIEN CUA TAT CA HOA DON: %.2f VND\n", tongTien);
+        }
+    }
+    
+    // Phương thức phụ để so sánh ngày
+    private int compareDate(String date1, String date2) {
+        try {
+            String[] parts1 = date1.split("/");
+            String[] parts2 = date2.split("/");
+            
+            int day1 = Integer.parseInt(parts1[0]);
+            int month1 = Integer.parseInt(parts1[1]);
+            int year1 = Integer.parseInt(parts1[2]);
+            
+            int day2 = Integer.parseInt(parts2[0]);
+            int month2 = Integer.parseInt(parts2[1]);
+            int year2 = Integer.parseInt(parts2[2]);
+            
+            if (year1 != year2) return year1 - year2;
+            if (month1 != month2) return month1 - month2;
+            return day1 - day2;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+
+
     
     public void docFile(String fileName) throws IOException, ClassNotFoundException {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
